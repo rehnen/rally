@@ -1,0 +1,18 @@
+<template bindable="message">
+  
+  <require from="resources/attributes/tool-tip"></require>
+  
+  <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="/" class="navbar-brand">${message}</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a route-href="route: home;">Start</a></li>
+      <li><a data-toggle="tooltip" tool-tip="title:Some text isn't it" route-href="route: about">Om</a></li>
+    </ul>
+  </div>
+<input type="text" value.bind="message" />
+<button click.trigger="trig()">Press me</button> 
+</nav>
+</template>
