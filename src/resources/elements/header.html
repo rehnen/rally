@@ -1,4 +1,4 @@
-<template bindable="message">
+<template bindable="message" bindable="router">
   
   <require from="resources/attributes/tool-tip"></require>
   
@@ -8,11 +8,10 @@
       <a href="/" class="navbar-brand">${message}</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a route-href="route: home;">Start</a></li>
-      <li><a data-toggle="tooltip" tool-tip="title:Some text isn't it" route-href="route: about">Om</a></li>
+      <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+        <a tool-tip title.bind="row.title" href.bind="row.href">${getName(row.title)}</a>
+      </li>
     </ul>
   </div>
-<input type="text" value.bind="message" />
-<button click.trigger="trig()">Press me</button> 
 </nav>
 </template>

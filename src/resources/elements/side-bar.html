@@ -1,3 +1,18 @@
-<template>
-  <h1>${value}</h1>
+<template bindable="filter">
+  <require from="./side-bar.css"></require>
+  <require from="./sign-list-item"></require>
+  <div class="side-menu col-sm-3 col-md2 sidebar">
+    <form class="navbar-form" role="search">
+      <div class="input-group">
+        <input type="text" class="form-control" value.two-way="filter" placeholder="Filter" name="q">
+      <div class="input-group-btn">
+        <button class="btn btn-default" type="submit">Filter</button>
+      </div>
+    </div>
+    <sign-list-item>deh hey! thats pretty cool</sign-list-item>
+    <ul class="nav nav-sidebar" ref="list">
+      <!-- TODO pass in an array to loop in the foor loop -->
+      <li repeat.for="i of 10"><a href="#">  item${i+1}</a></li>
+    </ul>
+  </div>
 </template>

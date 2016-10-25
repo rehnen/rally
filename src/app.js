@@ -9,15 +9,15 @@ export class App {
     config.options.pushState = true;
     config.map([
       {
-        route: ["", "home"],
-        name: "home",
+        route: ["", "home", "start"],
+        name: "Home",
         moduleId: "home",
         nav: true,
         title: "Börja bygga bana!"
       },
       {
         route: "about",
-        name: "about",
+        name: "About",
         moduleId: "about",
         nav: true,
         title: "About Marcus"

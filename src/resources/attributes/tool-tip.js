@@ -17,7 +17,8 @@ export class ToolTipCustomAttribute {
       title:this.title,
       placement: this.placement,
       delay: 100,
-      animation: true
+      animation: true,
+      width: "500px"
     });
   }
 }

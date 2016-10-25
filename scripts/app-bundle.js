@@ -6,75 +6,15 @@ define('about',["exports", "aurelia-framework"], function (exports, _aureliaFram
   });
   exports.About = undefined;
 
-  function _initDefineProp(target, property, descriptor, context) {
-    if (!descriptor) return;
-    Object.defineProperty(target, property, {
-      enumerable: descriptor.enumerable,
-      configurable: descriptor.configurable,
-      writable: descriptor.writable,
-      value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
-    });
-  }
-
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
     }
   }
 
-  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-    var desc = {};
-    Object['ke' + 'ys'](descriptor).forEach(function (key) {
-      desc[key] = descriptor[key];
-    });
-    desc.enumerable = !!desc.enumerable;
-    desc.configurable = !!desc.configurable;
-
-    if ('value' in desc || desc.initializer) {
-      desc.writable = true;
-    }
-
-    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-      return decorator(target, property, desc) || desc;
-    }, desc);
-
-    if (context && desc.initializer !== void 0) {
-      desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-      desc.initializer = undefined;
-    }
-
-    if (desc.initializer === void 0) {
-      Object['define' + 'Property'](target, property, desc);
-      desc = null;
-    }
-
-    return desc;
-  }
-
-  function _initializerWarningHelper(descriptor, context) {
-    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
-  }
-
-  var _desc, _value, _class, _descriptor;
-
-  var About = exports.About = (_class = function () {
-    function About() {
-      _classCallCheck(this, About);
-
-      _initDefineProp(this, "m", _descriptor, this);
-    }
-
-    About.prototype.mChanged = function mChanged(newValue, oldValue) {
-      console.log(newValue, oldValue);
-    };
-
-    return About;
-  }(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "m", [_aureliaFramework.observable], {
-    enumerable: true,
-    initializer: function initializer() {
-      return "Hello world";
-    }
-  })), _class);
+  var About = exports.About = function About() {
+    _classCallCheck(this, About);
+  };
 });
 define('app',["exports"], function (exports) {
   "use strict";
@@ -101,14 +41,14 @@ define('app',["exports"], function (exports) {
       config.title = "Rally";
       config.options.pushState = true;
       config.map([{
-        route: ["", "home"],
-        name: "home",
+        route: ["", "home", "start"],
+        name: "Home",
         moduleId: "home",
         nav: true,
         title: "Börja bygga bana!"
       }, {
         route: "about",
-        name: "about",
+        name: "About",
         moduleId: "about",
         nav: true,
         title: "About Marcus"
@@ -129,8 +69,8 @@ define('environment',["exports"], function (exports) {
     testing: true
   };
 });
-define('home',['exports'], function (exports) {
-  'use strict';
+define('home',["exports"], function (exports) {
+  "use strict";
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -144,8 +84,6 @@ define('home',['exports'], function (exports) {
 
   var Home = exports.Home = function Home() {
     _classCallCheck(this, Home);
-
-    this.message = 'Rally in aurelia!';
   };
 });
 define('main',['exports', './environment'], function (exports, _environment) {
@@ -274,7 +212,8 @@ define('resources/attributes/tool-tip',["exports", "aurelia-framework"], functio
         title: this.title,
         placement: this.placement,
         delay: 100,
-        animation: true
+        animation: true,
+        width: "500px"
       });
     };
 
@@ -287,8 +226,8 @@ define('resources/attributes/tool-tip',["exports", "aurelia-framework"], functio
     initializer: null
   })), _class2)) || _class);
 });
-define('resources/elements/header',["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
-  "use strict";
+define('resources/elements/header',['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
+  'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -350,44 +289,128 @@ define('resources/elements/header',["exports", "aurelia-framework"], function (e
     function Header() {
       _classCallCheck(this, Header);
 
-      _initDefineProp(this, "value", _descriptor, this);
+      _initDefineProp(this, 'router', _descriptor, this);
 
-      _initDefineProp(this, "message", _descriptor2, this);
+      _initDefineProp(this, 'message', _descriptor2, this);
 
-      _initDefineProp(this, "et", _descriptor3, this);
+      _initDefineProp(this, 'routes', _descriptor3, this);
     }
 
-    Header.prototype.valueChanged = function valueChanged(newValue, oldValue) {};
-
-    Header.prototype.trig = function trig() {
-      console.log(this.message);
+    Header.prototype.routerChange = function routerChange(router) {
+      this.router = router;
+      console.log(router);
     };
 
-    Header.prototype.messageChanged = function messageChanged(newValue, oldValue) {
-      console.log(newValue, oldValue);
+    Header.prototype.getName = function getName(title) {
+      var route = this.router.routes.find(function (a) {
+        return a.title === title;
+      });
+      return route.name;
     };
 
     return Header;
-  }(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "value", [_aureliaFramework.bindable], {
+  }(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'router', [_aureliaFramework.bindable], {
     enumerable: true,
     initializer: null
-  }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "message", [_aureliaFramework.bindable], {
+  }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, 'message', [_aureliaFramework.bindable], {
     enumerable: true,
     initializer: null
-  }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "et", [_aureliaFramework.bindable], {
+  }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, 'routes', [_aureliaFramework.bindable], {
     enumerable: true,
-    initializer: function initializer() {
-      return "test message";
-    }
+    initializer: null
   })), _class);
 });
-define('resources/elements/side-bar',['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
+define('resources/elements/side-bar',["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.SideBar = undefined;
+
+    function _initDefineProp(target, property, descriptor, context) {
+        if (!descriptor) return;
+        Object.defineProperty(target, property, {
+            enumerable: descriptor.enumerable,
+            configurable: descriptor.configurable,
+            writable: descriptor.writable,
+            value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+        });
+    }
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+        var desc = {};
+        Object['ke' + 'ys'](descriptor).forEach(function (key) {
+            desc[key] = descriptor[key];
+        });
+        desc.enumerable = !!desc.enumerable;
+        desc.configurable = !!desc.configurable;
+
+        if ('value' in desc || desc.initializer) {
+            desc.writable = true;
+        }
+
+        desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+            return decorator(target, property, desc) || desc;
+        }, desc);
+
+        if (context && desc.initializer !== void 0) {
+            desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+            desc.initializer = undefined;
+        }
+
+        if (desc.initializer === void 0) {
+            Object['define' + 'Property'](target, property, desc);
+            desc = null;
+        }
+
+        return desc;
+    }
+
+    function _initializerWarningHelper(descriptor, context) {
+        throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+    }
+
+    var _desc, _value, _class, _descriptor;
+
+    var SideBar = exports.SideBar = (_class = function () {
+        function SideBar() {
+            _classCallCheck(this, SideBar);
+
+            _initDefineProp(this, "filter", _descriptor, this);
+        }
+
+        SideBar.prototype.filterChanged = function filterChanged(newValue, oldValue) {
+            if (!this.list) return;
+            var listItems = this.list.querySelectorAll("li");
+            listItems.forEach(function (item) {
+                if (item.innerHTML.indexOf(newValue) === -1) {
+                    item.style.display = "none";
+                } else {
+                    item.style.display = "block";
+                }
+            });
+        };
+
+        return SideBar;
+    }(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "filter", [_aureliaFramework.bindable], {
+        enumerable: true,
+        initializer: null
+    })), _class);
+});
+define('resources/elements/sign-list-item',['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.SideBar = undefined;
+  exports.SignListItem = undefined;
 
   function _initDefineProp(target, property, descriptor, context) {
     if (!descriptor) return;
@@ -440,25 +463,27 @@ define('resources/elements/side-bar',['exports', 'aurelia-framework'], function 
 
   var _desc, _value, _class, _descriptor;
 
-  var SideBar = exports.SideBar = (_class = function () {
-    function SideBar() {
-      _classCallCheck(this, SideBar);
+  var SignListItem = exports.SignListItem = (_class = function () {
+    function SignListItem() {
+      _classCallCheck(this, SignListItem);
 
       _initDefineProp(this, 'value', _descriptor, this);
     }
 
-    SideBar.prototype.valueChanged = function valueChanged(newValue, oldValue) {};
+    SignListItem.prototype.valueChanged = function valueChanged(newValue, oldValue) {};
 
-    return SideBar;
+    return SignListItem;
   }(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'value', [_aureliaFramework.bindable], {
     enumerable: true,
     initializer: null
   })), _class);
 });
-define('text!about.html', ['module'], function(module) { module.exports = "<template>\n  <h1>About</h1>\n  <input type=\"text\" value.bind=\"m\">\n</template>"; });
+define('text!about.html', ['module'], function(module) { module.exports = "<template>\n  \n</template>"; });
 define('text!app.css', ['module'], function(module) { module.exports = ".content {\r\n    margin-top: 65px;\r\n}"; });
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"resources/elements/header\"></require>\n  <require from=\"bootstrap/css/bootstrap.min.css\"></require>\n  <require from=\"./app.css\"></require>\n  <header message.bind=\"message\" router.bind=\"router\"></header>\n  <div class=\"content\">\n    <h1>${message}</h1>\n    <router-view></router-view>\n  </div>  \n</template>"; });
-define('text!home.html', ['module'], function(module) { module.exports = "<template>\n  <h1>Home</h1>\n</template>\n  "; });
-define('text!resources/elements/header.html', ['module'], function(module) { module.exports = "<template bindable=\"message\">\n  \n  <require from=\"resources/attributes/tool-tip\"></require>\n  \n  <nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container\">\n    <div class=\"navbar-header\">\n      <a href=\"/\" class=\"navbar-brand\">${message}</a>\n    </div>\n    <ul class=\"nav navbar-nav\">\n      <li class=\"active\"><a route-href=\"route: home;\">Start</a></li>\n      <li><a data-toggle=\"tooltip\" tool-tip=\"title:Some text isn't it\" route-href=\"route: about\">Om</a></li>\n    </ul>\n  </div>\n<input type=\"text\" value.bind=\"message\" />\n<button click.trigger=\"trig()\">Press me</button> \n</nav>\n</template>"; });
-define('text!resources/elements/side-bar.html', ['module'], function(module) { module.exports = "<template>\n  <h1>${value}</h1>\n</template>"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"resources/elements/header\"></require>\n  <require from=\"bootstrap/css/bootstrap.min.css\"></require>\n  <require from=\"./app.css\"></require>\n  <header message.bind=\"message\" router.bind=\"router\"></header>\n  <div class=\"content\">\n    <router-view></router-view>\n  </div>  \n</template>"; });
+define('text!resources/elements/side-bar.css', ['module'], function(module) { module.exports = ".side-menu {\n  width: 280px;\n  position: absolute;\n  top: 50px;\n  left: 0;\n  bottom: 0;\n  padding: 0;\n  border-right: 1px solid #e7e7e7;\n  background-color: #f8f8f8;\n}"; });
+define('text!home.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"resources/elements/side-bar\"></require>\n  <side-bar class=\"row\"></side-bar>\n</template>\n  "; });
+define('text!resources/elements/header.html', ['module'], function(module) { module.exports = "<template bindable=\"message\" bindable=\"router\">\n  \n  <require from=\"resources/attributes/tool-tip\"></require>\n  \n  <nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container\">\n    <div class=\"navbar-header\">\n      <a href=\"/\" class=\"navbar-brand\">${message}</a>\n    </div>\n    <ul class=\"nav navbar-nav\">\n      <li repeat.for=\"row of router.navigation\" class=\"${row.isActive ? 'active' : ''}\">\n        <a tool-tip title.bind=\"row.title\" href.bind=\"row.href\">${getName(row.title)}</a>\n      </li>\n    </ul>\n  </div>\n</nav>\n</template>"; });
+define('text!resources/elements/side-bar.html', ['module'], function(module) { module.exports = "<template bindable=\"filter\">\n  <require from=\"./side-bar.css\"></require>\n  <require from=\"./sign-list-item\"></require>\n  <div class=\"side-menu col-sm-3 col-md2 sidebar\">\n    <form class=\"navbar-form\" role=\"search\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" value.two-way=\"filter\" placeholder=\"Filter\" name=\"q\">\n      <div class=\"input-group-btn\">\n        <button class=\"btn btn-default\" type=\"submit\">Filter</button>\n      </div>\n    </div>\n    <sign-list-item>deh hey! thats pretty cool</sign-list-item>\n    <ul class=\"nav nav-sidebar\" ref=\"list\">\n      <!-- TODO pass in an array to loop in the foor loop -->\n      <li repeat.for=\"i of 10\"><a href=\"#\">  item${i+1}</a></li>\n    </ul>\n  </div>\n</template>"; });
+define('text!resources/elements/sign-list-item.html', ['module'], function(module) { module.exports = "<template>\n  <div class=\"sign-list-item-container\">\n    <slot></slot>\n  </div>\n</template>"; });
 //# sourceMappingURL=app-bundle.js.map
