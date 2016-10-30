@@ -1,0 +1,41 @@
+side-bar {
+  width: 280px;
+  position: absolute;
+  overflow-y: hidden;
+  top: 50px;
+  left: 0;
+  bottom: 0;
+  padding: 0;
+}
+.side-menu {
+  width: 280px;
+  position: absolute;
+  overflow-y: hidden;
+  top:0;
+  left: 0;
+  bottom: 0;
+  padding: 0;
+  border-right: 1px solid #e7e7e7;
+  background-color: #f8f8f8;
+}
+.sign-list {
+  height: calc(100% - 50px);
+  overflow-y: scroll;
+  bottom: 0;
+}
+.listItem {
+  background-color: #fff;
+  border-bottom: 1px solid #e7e7e7;
+}
+.sign-list::-webkit-scrollbar {
+  width: 12px;
+}
+.sign-list::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
+  border-radius: 2px;
+}
+
+.sign-list::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.5);
+}

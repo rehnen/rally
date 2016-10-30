@@ -320,8 +320,8 @@ define('resources/elements/header',['exports', 'aurelia-framework'], function (e
     initializer: null
   })), _class);
 });
-define('resources/elements/side-bar',["exports", "aurelia-framework"], function (exports, _aureliaFramework) {
-    "use strict";
+define('resources/elements/side-bar',['exports', 'aurelia-framework', 'aurelia-event-aggregator'], function (exports, _aureliaFramework, _aureliaEventAggregator) {
+    'use strict';
 
     Object.defineProperty(exports, "__esModule", {
         value: true
@@ -377,16 +377,19 @@ define('resources/elements/side-bar',["exports", "aurelia-framework"], function 
         throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
     }
 
-    var _desc, _value, _class, _descriptor;
+    var _dec, _class, _desc, _value, _class2, _descriptor;
 
-    var SideBar = exports.SideBar = (_class = function () {
-        function SideBar() {
+    var SideBar = exports.SideBar = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregator.EventAggregator), _dec(_class = (_class2 = function () {
+        function SideBar(eventAggregator) {
             _classCallCheck(this, SideBar);
 
-            _initDefineProp(this, "filter", _descriptor, this);
+            _initDefineProp(this, 'filter', _descriptor, this);
+
+            this.eventAggregator = eventAggregator;
+            this.elements = [];
         }
 
-        SideBar.prototype.filterChanged = function filterChanged(newValue, oldValue) {
+        SideBar.prototype.filterChanged = function filterChanged(newValue) {
             if (!this.list) return;
             var listItems = this.list.querySelectorAll("li");
             listItems.forEach(function (item) {
@@ -398,11 +401,15 @@ define('resources/elements/side-bar',["exports", "aurelia-framework"], function 
             });
         };
 
+        SideBar.prototype.imageClicked = function imageClicked(e) {
+            this.eventAggregator.publish("image-dragged", e);
+        };
+
         return SideBar;
-    }(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "filter", [_aureliaFramework.bindable], {
+    }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'filter', [_aureliaFramework.bindable], {
         enumerable: true,
         initializer: null
-    })), _class);
+    })), _class2)) || _class);
 });
 define('resources/elements/sign-list-item',['exports', 'aurelia-framework'], function (exports, _aureliaFramework) {
   'use strict';
@@ -478,12 +485,96 @@ define('resources/elements/sign-list-item',['exports', 'aurelia-framework'], fun
     initializer: null
   })), _class);
 });
+define('resources/elements/rally-canvas',['exports', 'aurelia-framework', 'aurelia-event-aggregator'], function (exports, _aureliaFramework, _aureliaEventAggregator) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.RallyCanvas = undefined;
+
+  function _initDefineProp(target, property, descriptor, context) {
+    if (!descriptor) return;
+    Object.defineProperty(target, property, {
+      enumerable: descriptor.enumerable,
+      configurable: descriptor.configurable,
+      writable: descriptor.writable,
+      value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+    });
+  }
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+    var desc = {};
+    Object['ke' + 'ys'](descriptor).forEach(function (key) {
+      desc[key] = descriptor[key];
+    });
+    desc.enumerable = !!desc.enumerable;
+    desc.configurable = !!desc.configurable;
+
+    if ('value' in desc || desc.initializer) {
+      desc.writable = true;
+    }
+
+    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+      return decorator(target, property, desc) || desc;
+    }, desc);
+
+    if (context && desc.initializer !== void 0) {
+      desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+      desc.initializer = undefined;
+    }
+
+    if (desc.initializer === void 0) {
+      Object['define' + 'Property'](target, property, desc);
+      desc = null;
+    }
+
+    return desc;
+  }
+
+  function _initializerWarningHelper(descriptor, context) {
+    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+  }
+
+  var _dec, _class, _desc, _value, _class2, _descriptor;
+
+  var RallyCanvas = exports.RallyCanvas = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregator.EventAggregator), _dec(_class = (_class2 = function () {
+    function RallyCanvas(eventAggregator) {
+      _classCallCheck(this, RallyCanvas);
+
+      _initDefineProp(this, 'value', _descriptor, this);
+
+      this.eventAggregator = eventAggregator;
+      this.setUpSubscription();
+    }
+
+    RallyCanvas.prototype.setUpSubscription = function setUpSubscription() {
+      this.eventAggregator.subscribe("image-dragged", function (e) {
+        console.log(e);
+      });
+    };
+
+    return RallyCanvas;
+  }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'value', [_aureliaFramework.bindable], {
+    enumerable: true,
+    initializer: null
+  })), _class2)) || _class);
+});
 define('text!about.html', ['module'], function(module) { module.exports = "<template>\n  \n</template>"; });
 define('text!app.css', ['module'], function(module) { module.exports = ".content {\r\n    margin-top: 65px;\r\n}"; });
 define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"resources/elements/header\"></require>\n  <require from=\"bootstrap/css/bootstrap.min.css\"></require>\n  <require from=\"./app.css\"></require>\n  <header message.bind=\"message\" router.bind=\"router\"></header>\n  <div class=\"content\">\n    <router-view></router-view>\n  </div>  \n</template>"; });
-define('text!resources/elements/side-bar.css', ['module'], function(module) { module.exports = ".side-menu {\n  width: 280px;\n  position: absolute;\n  top: 50px;\n  left: 0;\n  bottom: 0;\n  padding: 0;\n  border-right: 1px solid #e7e7e7;\n  background-color: #f8f8f8;\n}"; });
-define('text!home.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"resources/elements/side-bar\"></require>\n  <side-bar class=\"row\"></side-bar>\n</template>\n  "; });
-define('text!resources/elements/header.html', ['module'], function(module) { module.exports = "<template bindable=\"message\" bindable=\"router\">\n  \n  <require from=\"resources/attributes/tool-tip\"></require>\n  \n  <nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container\">\n    <div class=\"navbar-header\">\n      <a href=\"/\" class=\"navbar-brand\">${message}</a>\n    </div>\n    <ul class=\"nav navbar-nav\">\n      <li repeat.for=\"row of router.navigation\" class=\"${row.isActive ? 'active' : ''}\">\n        <a tool-tip title.bind=\"row.title\" href.bind=\"row.href\">${getName(row.title)}</a>\n      </li>\n    </ul>\n  </div>\n</nav>\n</template>"; });
-define('text!resources/elements/side-bar.html', ['module'], function(module) { module.exports = "<template bindable=\"filter\">\n  <require from=\"./side-bar.css\"></require>\n  <require from=\"./sign-list-item\"></require>\n  <div class=\"side-menu col-sm-3 col-md2 sidebar\">\n    <form class=\"navbar-form\" role=\"search\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" value.two-way=\"filter\" placeholder=\"Filter\" name=\"q\">\n      <div class=\"input-group-btn\">\n        <button class=\"btn btn-default\" type=\"submit\">Filter</button>\n      </div>\n    </div>\n    <sign-list-item>deh hey! thats pretty cool</sign-list-item>\n    <ul class=\"nav nav-sidebar\" ref=\"list\">\n      <!-- TODO pass in an array to loop in the foor loop -->\n      <li repeat.for=\"i of 10\"><a href=\"#\">  item${i+1}</a></li>\n    </ul>\n  </div>\n</template>"; });
+define('text!resources/elements/side-bar.css', ['module'], function(module) { module.exports = "side-bar {\n  width: 280px;\n  position: absolute;\n  overflow-y: hidden;\n  top: 50px;\n  left: 0;\n  bottom: 0;\n  padding: 0;\n}\n.side-menu {\n  width: 280px;\n  position: absolute;\n  overflow-y: hidden;\n  top:0;\n  left: 0;\n  bottom: 0;\n  padding: 0;\n  border-right: 1px solid #e7e7e7;\n  background-color: #f8f8f8;\n}\n.sign-list {\n  height: calc(100% - 50px);\n  overflow-y: scroll;\n  bottom: 0;\n}\n.listItem {\n  background-color: #fff;\n  border-bottom: 1px solid #e7e7e7;\n}\n.sign-list::-webkit-scrollbar {\n  width: 12px;\n}\n.sign-list::-webkit-scrollbar-track {\n  -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.1);\n  border-radius: 2px;\n}\n\n.sign-list::-webkit-scrollbar-thumb {\n  border-radius: 2px;\n  -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.5);\n}\n"; });
+define('text!home.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"./home.css\"></require>\n  <require from=\"resources/elements/side-bar\"></require>\n  <require from=\"resources/elements/rally-canvas\"></require>\n  <side-bar class=\"row\"></side-bar>\n  <rally-canvas></rally-canvas>\n</template>\n"; });
+define('text!resources/elements/header.html', ['module'], function(module) { module.exports = "<template bindable=\"message\" bindable=\"router\">\n\n  <require from=\"resources/attributes/tool-tip\"></require>\n\n  <nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container\">\n    <div class=\"navbar-header\">\n      <a href=\"/\" class=\"navbar-brand\">${message}</a>\n    </div>\n    <ul class=\"nav navbar-nav\">\n      <li repeat.for=\"row of router.navigation\" class=\"${row.isActive ? 'active' : ''}\">\n        <a tool-tip title.bind=\"row.title\" href.bind=\"row.href\">${getName(row.title)}</a>\n      </li>\n    </ul>\n  </div>\n</nav>\n</template>\n"; });
+define('text!resources/elements/side-bar.html', ['module'], function(module) { module.exports = "<template bindable=\"filter\">\n  <require from=\"./side-bar.css\"></require>\n  <require from=\"./sign-list-item\"></require>\n  <require from=\"resources/attributes/tool-tip\"></require>\n  <div class=\"side-menu col-sm-3 col-md2 sidebar\">\n    <form class=\"navbar-form\" role=\"search\">\n      <div class=\"input-group\">\n        <input tool-tip title=\"Filtrera på skyltens nummer. Exempelvis 401\" type=\"text\" class=\"form-control\" value.two-way=\"filter\" placeholder=\"Filter\" name=\"q\">\n        <div class=\"input-group-btn\">\n          <button class=\"btn btn-default\" type=\"submit\">Filter</button>\n        </div>\n      </div>\n    </form>\n    <ul class=\"sign-list nav nav-sidebar\" ref=\"list\">\n      <!--Master class signs-->\n      <li class=\"listItem\" repeat.for=\"i of 13\">\n        <a>\n        ${400 + (i+1)}\n          <img src=\"img/${400 + (i+1)}.jpg\" alt=\"cannot find ${400 + (i+1)}\" dragend.delegate=\"imageClicked($event)\" width=\"100px\"/>\n        </a>\n      </li>\n      <!--END master class signs-->\n    </ul>\n  </div>\n</template>\n"; });
 define('text!resources/elements/sign-list-item.html', ['module'], function(module) { module.exports = "<template>\n  <div class=\"sign-list-item-container\">\n    <slot></slot>\n  </div>\n</template>"; });
+define('text!resources/elements/rally-canvas.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"./rally-canvas.css\"></require>\n  <canvas ref=\"canvas\" height=\"600px\" width=\"800px\" top=\"0\" style=\"border: 1px solid black\"></canvas>\n</template>\n"; });
+define('text!home.css', ['module'], function(module) { module.exports = ""; });
+define('text!resources/elements/rally-canvas.css', ['module'], function(module) { module.exports = "canvas {\n  position: absolute;\n  left: 270px;\n  top:0;\n  bottom: 0;\n  top: 55px;\n}\n"; });
 //# sourceMappingURL=app-bundle.js.map

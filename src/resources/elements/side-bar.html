@@ -1,18 +1,25 @@
 <template bindable="filter">
   <require from="./side-bar.css"></require>
   <require from="./sign-list-item"></require>
+  <require from="resources/attributes/tool-tip"></require>
   <div class="side-menu col-sm-3 col-md2 sidebar">
     <form class="navbar-form" role="search">
       <div class="input-group">
-        <input type="text" class="form-control" value.two-way="filter" placeholder="Filter" name="q">
-      <div class="input-group-btn">
-        <button class="btn btn-default" type="submit">Filter</button>
+        <input tool-tip title="Filtrera på skyltens nummer. Exempelvis 401" type="text" class="form-control" value.two-way="filter" placeholder="Filter" name="q">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">Filter</button>
+        </div>
       </div>
-    </div>
-    <sign-list-item>deh hey! thats pretty cool</sign-list-item>
-    <ul class="nav nav-sidebar" ref="list">
-      <!-- TODO pass in an array to loop in the foor loop -->
-      <li repeat.for="i of 10"><a href="#">  item${i+1}</a></li>
+    </form>
+    <ul class="sign-list nav nav-sidebar" ref="list">
+      <!--Master class signs-->
+      <li class="listItem" repeat.for="i of 13">
+        <a>
+        ${400 + (i+1)}
+          <img src="img/${400 + (i+1)}.jpg" alt="cannot find ${400 + (i+1)}" dragend.delegate="imageClicked($event)" width="100px"/>
+        </a>
+      </li>
+      <!--END master class signs-->
     </ul>
   </div>
 </template>
