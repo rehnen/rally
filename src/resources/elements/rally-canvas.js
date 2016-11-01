@@ -11,9 +11,22 @@ export class RallyCanvas {
   }
 
   setUpSubscription() {
-    this.eventAggregator.subscribe("image-dragged", e => {
-      console.log(e);
+    this.eventAggregator.subscribe("image-dragged", event => {
+      console.log("retarded", event)
+      const e = event.event;
+      const canvasRect = this.canvas.getBoundingClientRect();
+      console.log(canvasRect, e)
+      const point = {
+        x: e.clientX - canvasRect.left - event.offsetX,
+        y: e.clientY - canvasRect.top - event.offsetY
+      };
+      const ctx = this.canvas.getContext("2d");
+      ctx.drawImage(e.target, point.x, point.y, 100, 70);
+      console.log(canvasRect)
+      console.log(e.screenY , window.screenY)
     });
   }
+
+
 }
 

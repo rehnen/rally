@@ -5,7 +5,9 @@
   <div class="side-menu col-sm-3 col-md2 sidebar">
     <form class="navbar-form" role="search">
       <div class="input-group">
-        <input tool-tip title="Filtrera på skyltens nummer. Exempelvis 401" type="text" class="form-control" value.two-way="filter" placeholder="Filter" name="q">
+        <input tool-tip title="Filtrera på skyltens nummer. Exempelvis 401"
+               type="text" class="form-control" value.two-way="filter"
+               placeholder="Filter" name="q">
         <div class="input-group-btn">
           <button class="btn btn-default" type="submit">Filter</button>
         </div>
@@ -16,7 +18,7 @@
       <li class="listItem" repeat.for="i of 13">
         <a>
         ${400 + (i+1)}
-          <img src="img/${400 + (i+1)}.jpg" alt="cannot find ${400 + (i+1)}" dragend.delegate="imageClicked($event)" width="100px"/>
+          <img src="img/${400 + (i+1)}.jpg" alt="cannot find ${400 + (i+1)}" touchend.delegate="onMouseUp($event)" mouseup.delegate="onMouseUp($event)" touchstart.delegate="touchStart($event)" mousedown.delegate="mouseDown($event)" width="100px"/>
         </a>
       </li>
       <!--END master class signs-->
