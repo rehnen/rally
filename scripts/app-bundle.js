@@ -558,15 +558,16 @@ define('resources/elements/side-bar',['exports', 'aurelia-framework', 'aurelia-e
       this.image.style.top = e.targetTouches[0].clientY - offsetY + "px";
       document.getElementsByTagName("body")[0].appendChild(this.image);
 
-      var handler = function handler(e) {
+      var touchHandler = function touchHandler(e) {
         _this2.image.style.left = e.targetTouches[0].clientX - offsetX + "px";
         _this2.image.style.top = e.targetTouches[0].clientY - offsetY + "px";
         _this2.latestDrag = e;
       };
-      document.addEventListener("touchmove", handler);
 
-      document.addEventListener("touchend", function (e) {
-        document.removeEventListener("touchmove", handler);
+      var touchEndHandler = function touchEndHandler(e) {
+        document.removeEventListener("touchmove", touchHandler);
+        document.removeEventListener("touchend", touchEndHandler);
+
         console.log(e);
         document.getElementsByTagName("body")[0].removeChild(_this2.image);
         var positions = {
@@ -579,7 +580,10 @@ define('resources/elements/side-bar',['exports', 'aurelia-framework', 'aurelia-e
           offsetX: offsetX,
           offsetY: offsetY
         });
-      });
+      };
+
+      document.addEventListener("touchmove", touchHandler);
+      document.addEventListener("touchend", touchEndHandler);
     };
 
     return SideBar;
@@ -667,10 +671,10 @@ define('text!app.css', ['module'], function(module) { module.exports = ".content
 define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"resources/elements/header\"></require>\n  <require from=\"bootstrap/css/bootstrap.min.css\"></require>\n  <require from=\"./app.css\"></require>\n  <header message.bind=\"message\" router.bind=\"router\"></header>\n  <div class=\"content\">\n    <router-view></router-view>\n  </div>  \n</template>"; });
 define('text!home.css', ['module'], function(module) { module.exports = ""; });
 define('text!home.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"./home.css\"></require>\n  <require from=\"resources/elements/side-bar\"></require>\n  <require from=\"resources/elements/rally-canvas\"></require>\n  <side-bar class=\"row\"></side-bar>\n  <rally-canvas></rally-canvas>\n</template>\n"; });
-define('text!resources/elements/rally-canvas.css', ['module'], function(module) { module.exports = "canvas {\n  position: absolute;\n  left: 270px;\n  top:0;\n  bottom: 0;\n  top: 55px;\n}\n"; });
+define('text!resources/elements/rally-canvas.css', ['module'], function(module) { module.exports = "canvas {\n  position: absolute;\n  left: 270px;\n  top:0;\n  bottom: 0;\n  top: 55px;\n  outline: solid #e7e7e7 1px;\n  border: solid #f8f8f8 1px;\n\n}\n"; });
 define('text!resources/elements/header.html', ['module'], function(module) { module.exports = "<template bindable=\"message\" bindable=\"router\">\n\n  <require from=\"resources/attributes/tool-tip\"></require>\n\n  <nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container\">\n    <div class=\"navbar-header\">\n      <a href=\"/\" class=\"navbar-brand\">${message}</a>\n    </div>\n    <ul class=\"nav navbar-nav\">\n      <li repeat.for=\"row of router.navigation\" class=\"${row.isActive ? 'active' : ''}\">\n        <a tool-tip title.bind=\"row.title\" href.bind=\"row.href\">${getName(row.title)}</a>\n      </li>\n    </ul>\n  </div>\n</nav>\n</template>\n"; });
-define('text!resources/elements/side-bar.css', ['module'], function(module) { module.exports = "side-bar {\n  width: 280px;\n  position: absolute;\n  overflow-y: hidden;\n  top: 50px;\n  left: 0;\n  bottom: 0;\n  padding: 0;\n}\n.side-menu {\n  width: 280px;\n  position: absolute;\n  overflow-y: hidden;\n  top:0;\n  left: 0;\n  bottom: 0;\n  padding: 0;\n  border-right: 1px solid #e7e7e7;\n  background-color: #f8f8f8;\n}\n.sign-list {\n  height: calc(100% - 50px);\n  overflow-y: scroll;\n  bottom: 0;\n}\n.listItem {\n  background-color: #fff;\n  border-bottom: 1px solid #e7e7e7;\n}\n.sign-list::-webkit-scrollbar {\n  width: 12px;\n}\n.sign-list::-webkit-scrollbar-track {\n  -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.1);\n  border-radius: 2px;\n}\n\n.sign-list::-webkit-scrollbar-thumb {\n  border-radius: 2px;\n  -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.5);\n}\n#dragging.image {\n  width: 100px;\n  position: absolute;\n  zIndex: 9999;\n}\n"; });
-define('text!resources/elements/rally-canvas.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"./rally-canvas.css\"></require>\n  <canvas ref=\"canvas\" height=\"600px\" width=\"800px\" top=\"0\" style=\"border: 1px solid black\"></canvas>\n</template>\n<!--\ndragover.delegate=\"onDrop(1)\" drop.delegate=\"onDrop($event)\"\n-->\n"; });
+define('text!resources/elements/side-bar.css', ['module'], function(module) { module.exports = "side-bar {\n  width: 280px;\n  position: absolute;\n  overflow-y: hidden;\n  top: 50px;\n  left: 0;\n  bottom: 0;\n  padding: 0;\n}\n.side-menu {\n  width: 280px;\n  position: absolute;\n  overflow-y: hidden;\n  top:0;\n  left: 0;\n  bottom: 0;\n  padding: 0;\n  border-right: 1px solid #e7e7e7;\n  background-color: #f8f8f8;\n}\n.sign-list {\n  height: calc(100% - 50px);\n  overflow-y: scroll;\n  bottom: 0;\n}\n.listItem {\n  background-color: #fff;\n  border-bottom: 1px solid #e7e7e7;\n}\n.listItem a {\n  margin: 10px;\n}\n.sign-list::-webkit-scrollbar {\n  width: 12px;\n}\n.sign-list::-webkit-scrollbar-track {\n  -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.1);\n  border-radius: 2px;\n}\n\n.sign-list::-webkit-scrollbar-thumb {\n  border-radius: 2px;\n  -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.5);\n}\n#dragging.image {\n  width: 100px;\n  position: absolute;\n  zIndex: 9999;\n}\n"; });
+define('text!resources/elements/rally-canvas.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"./rally-canvas.css\"></require>\n  <canvas ref=\"canvas\" height=\"600px\" width=\"800px\" top=\"0\"></canvas>\n</template>\n<!--\ndragover.delegate=\"onDrop(1)\" drop.delegate=\"onDrop($event)\"\n-->\n"; });
 define('text!resources/elements/side-bar.html', ['module'], function(module) { module.exports = "<template bindable=\"filter\">\n  <require from=\"./side-bar.css\"></require>\n  <require from=\"./sign-list-item\"></require>\n  <require from=\"resources/attributes/tool-tip\"></require>\n  <div class=\"side-menu col-sm-3 col-md2 sidebar\">\n    <form class=\"navbar-form\" role=\"search\">\n      <div class=\"input-group\">\n        <input tool-tip title=\"Filtrera på skyltens nummer. Exempelvis 401\"\n               type=\"text\" class=\"form-control\" value.two-way=\"filter\"\n               placeholder=\"Filter\" name=\"q\">\n        <div class=\"input-group-btn\">\n          <button class=\"btn btn-default\" type=\"submit\">Filter</button>\n        </div>\n      </div>\n    </form>\n    <ul class=\"sign-list nav nav-sidebar\" ref=\"list\">\n      <!--Master class signs-->\n      <li class=\"listItem\" repeat.for=\"i of 13\">\n        <a>\n        ${400 + (i+1)}\n          <img src=\"img/${400 + (i+1)}.jpg\" alt=\"cannot find ${400 + (i+1)}\" touchend.delegate=\"onMouseUp($event)\" mouseup.delegate=\"onMouseUp($event)\" touchstart.delegate=\"touchStart($event)\" mousedown.delegate=\"mouseDown($event)\" width=\"100px\"/>\n        </a>\n      </li>\n      <!--END master class signs-->\n    </ul>\n  </div>\n</template>\n"; });
 define('text!resources/elements/sign-list-item.html', ['module'], function(module) { module.exports = "<template>\n  <div class=\"sign-list-item-container\">\n    <slot></slot>\n  </div>\n</template>"; });
 //# sourceMappingURL=app-bundle.js.map

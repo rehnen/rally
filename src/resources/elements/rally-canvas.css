@@ -4,4 +4,7 @@ canvas {
   top:0;
   bottom: 0;
   top: 55px;
+  outline: solid #e7e7e7 1px;
+  border: solid #f8f8f8 1px;
+
 }

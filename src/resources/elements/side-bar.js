@@ -81,15 +81,16 @@ export class SideBar {
     document.getElementsByTagName("body")[0].appendChild(this.image);
 
 
-    const handler = (e) => {
+    const touchHandler = (e) => {
       this.image.style.left = (e.targetTouches[0].clientX - offsetX) + "px";
       this.image.style.top = (e.targetTouches[0].clientY - offsetY) + "px";
       this.latestDrag = e;
     };
-    document.addEventListener("touchmove", handler);
 
-    document.addEventListener("touchend", (e) => {
-      document.removeEventListener("touchmove", handler);
+    const touchEndHandler = (e) => {
+      document.removeEventListener("touchmove", touchHandler);
+      document.removeEventListener("touchend", touchEndHandler);
+
       console.log(e);
       document.getElementsByTagName("body")[0].removeChild(this.image);
       const positions = {
@@ -102,9 +103,10 @@ export class SideBar {
         offsetX: offsetX,
         offsetY: offsetY
       });
-      //this.image.style.left = (e.targetTouches[0].clientX - offsetX) + "px";
-      //this.image.style.top = (e.targetTouches[0].clientY - offsetY) + "px";
-    });
+    };
+
+    document.addEventListener("touchmove", touchHandler);
+    document.addEventListener("touchend", touchEndHandler);
   }
 }
 

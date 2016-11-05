@@ -27,6 +27,9 @@ side-bar {
   background-color: #fff;
   border-bottom: 1px solid #e7e7e7;
 }
+.listItem a {
+  margin: 10px;
+}
 .sign-list::-webkit-scrollbar {
   width: 12px;
 }
