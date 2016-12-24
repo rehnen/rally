@@ -1,6 +1,9 @@
 <template>
   <require from="./rally-canvas.css"></require>
-  <canvas ref="canvas" height="600px" width="800px" top="0"></canvas>
+  <canvas ref="canvas" height="600px" width="800px" top="0"
+          mousedown.delegate="touchAndClickHandler($event)"
+          touchstart.delegate="touchAndClickHandler($event)"
+          mouseup.delegate="releasePressHandler($event)"></canvas>
 </template>
 <!--
 dragover.delegate="onDrop(1)" drop.delegate="onDrop($event)"

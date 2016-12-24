@@ -320,100 +320,6 @@ define('resources/elements/header',['exports', 'aurelia-framework'], function (e
     initializer: null
   })), _class);
 });
-define('resources/elements/rally-canvas',['exports', 'aurelia-framework', 'aurelia-event-aggregator'], function (exports, _aureliaFramework, _aureliaEventAggregator) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.RallyCanvas = undefined;
-
-  function _initDefineProp(target, property, descriptor, context) {
-    if (!descriptor) return;
-    Object.defineProperty(target, property, {
-      enumerable: descriptor.enumerable,
-      configurable: descriptor.configurable,
-      writable: descriptor.writable,
-      value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
-    });
-  }
-
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
-
-  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-    var desc = {};
-    Object['ke' + 'ys'](descriptor).forEach(function (key) {
-      desc[key] = descriptor[key];
-    });
-    desc.enumerable = !!desc.enumerable;
-    desc.configurable = !!desc.configurable;
-
-    if ('value' in desc || desc.initializer) {
-      desc.writable = true;
-    }
-
-    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-      return decorator(target, property, desc) || desc;
-    }, desc);
-
-    if (context && desc.initializer !== void 0) {
-      desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-      desc.initializer = undefined;
-    }
-
-    if (desc.initializer === void 0) {
-      Object['define' + 'Property'](target, property, desc);
-      desc = null;
-    }
-
-    return desc;
-  }
-
-  function _initializerWarningHelper(descriptor, context) {
-    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
-  }
-
-  var _dec, _class, _desc, _value, _class2, _descriptor;
-
-  var RallyCanvas = exports.RallyCanvas = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregator.EventAggregator), _dec(_class = (_class2 = function () {
-    function RallyCanvas(eventAggregator) {
-      _classCallCheck(this, RallyCanvas);
-
-      _initDefineProp(this, 'value', _descriptor, this);
-
-      this.eventAggregator = eventAggregator;
-      this.setUpSubscription();
-    }
-
-    RallyCanvas.prototype.setUpSubscription = function setUpSubscription() {
-      var _this = this;
-
-      this.eventAggregator.subscribe("image-dragged", function (event) {
-        console.log("retarded", event);
-        var e = event.event;
-        var canvasRect = _this.canvas.getBoundingClientRect();
-        console.log(canvasRect, e);
-        var point = {
-          x: e.clientX - canvasRect.left - event.offsetX,
-          y: e.clientY - canvasRect.top - event.offsetY
-        };
-        var ctx = _this.canvas.getContext("2d");
-        ctx.drawImage(e.target, point.x, point.y, 100, 70);
-        console.log(canvasRect);
-        console.log(e.screenY, window.screenY);
-      });
-    };
-
-    return RallyCanvas;
-  }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'value', [_aureliaFramework.bindable], {
-    enumerable: true,
-    initializer: null
-  })), _class2)) || _class);
-});
 define('resources/elements/side-bar',['exports', 'aurelia-framework', 'aurelia-event-aggregator'], function (exports, _aureliaFramework, _aureliaEventAggregator) {
   'use strict';
 
@@ -666,15 +572,182 @@ define('resources/elements/sign-list-item',['exports', 'aurelia-framework'], fun
     initializer: null
   })), _class);
 });
-define('text!about.html', ['module'], function(module) { module.exports = "<template>\n  \n</template>"; });
+define('resources/elements/rally-canvas',['exports', 'aurelia-framework', 'aurelia-event-aggregator'], function (exports, _aureliaFramework, _aureliaEventAggregator) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.RallyCanvas = undefined;
+
+  function _initDefineProp(target, property, descriptor, context) {
+    if (!descriptor) return;
+    Object.defineProperty(target, property, {
+      enumerable: descriptor.enumerable,
+      configurable: descriptor.configurable,
+      writable: descriptor.writable,
+      value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+    });
+  }
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+    var desc = {};
+    Object['ke' + 'ys'](descriptor).forEach(function (key) {
+      desc[key] = descriptor[key];
+    });
+    desc.enumerable = !!desc.enumerable;
+    desc.configurable = !!desc.configurable;
+
+    if ('value' in desc || desc.initializer) {
+      desc.writable = true;
+    }
+
+    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+      return decorator(target, property, desc) || desc;
+    }, desc);
+
+    if (context && desc.initializer !== void 0) {
+      desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+      desc.initializer = undefined;
+    }
+
+    if (desc.initializer === void 0) {
+      Object['define' + 'Property'](target, property, desc);
+      desc = null;
+    }
+
+    return desc;
+  }
+
+  function _initializerWarningHelper(descriptor, context) {
+    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+  }
+
+  var _dec, _class, _desc, _value, _class2, _descriptor;
+
+  var RallyCanvas = exports.RallyCanvas = (_dec = (0, _aureliaFramework.inject)(_aureliaEventAggregator.EventAggregator), _dec(_class = (_class2 = function () {
+    function RallyCanvas(eventAggregator) {
+      _classCallCheck(this, RallyCanvas);
+
+      _initDefineProp(this, 'value', _descriptor, this);
+
+      this.eventAggregator = eventAggregator;
+      this.setUpSubscription();
+      this.images = [];
+    }
+
+    RallyCanvas.prototype.setUpSubscription = function setUpSubscription() {
+      var _this = this;
+
+      this.eventAggregator.subscribe("image-dragged", function (event) {
+        var e = event.event;
+        var canvasRect = _this.canvas.getBoundingClientRect();
+        var point = {
+          x: e.clientX - canvasRect.left - event.offsetX,
+          y: e.clientY - canvasRect.top - event.offsetY
+        };
+        var ctx = _this.canvas.getContext("2d");
+        ctx.drawImage(e.target, point.x, point.y, 100, 70);
+
+        _this.images.push({
+          img: e.target,
+          x: point.x,
+          y: point.y
+        });
+      });
+    };
+
+    RallyCanvas.prototype.touchAndClickHandler = function touchAndClickHandler(event) {
+      var _this2 = this;
+
+      if (event.type === "touchstart") {
+        event = event.changedTouches[0];
+      }
+      var CANVAS_CLICK_POINT = {
+        x: event.clientX - this.canvas.getBoundingClientRect().left,
+        y: event.clientY - this.canvas.getBoundingClientRect().top
+      };
+
+      var clickedImage = this.images.find(function (image, index) {
+        var isImage = CANVAS_CLICK_POINT.x >= image.x && CANVAS_CLICK_POINT.x <= image.x + 100 && CANVAS_CLICK_POINT.y >= image.y && CANVAS_CLICK_POINT.y <= image.y + 70;
+        if (isImage) {
+          _this2.images.splice(index, 1);
+          return true;
+        }
+      });
+
+      var cxt = this.canvas.getContext("2d");
+
+      if (clickedImage) {
+        (function () {
+          var OFFSET_X = CANVAS_CLICK_POINT.x - clickedImage.x;
+          var OFFSET_Y = CANVAS_CLICK_POINT.y - clickedImage.y;
+          document.onmousemove = function (e) {
+            cxt.clearRect(0, 0, 1000, 1000);
+
+            clickedImage.x = e.clientX - _this2.canvas.getBoundingClientRect().left - OFFSET_X;
+            clickedImage.y = e.clientY - _this2.canvas.getBoundingClientRect().top - OFFSET_Y;
+
+            _this2.images.push(clickedImage);
+
+            _this2.images.forEach(function (image) {
+              cxt.drawImage(image.img, image.x, image.y, 100, 70);
+            });
+          };
+
+          var touchMove = function touchMove(e) {
+
+            e = e.changedTouches[0];
+
+            console.log(e);
+            cxt.clearRect(0, 0, 1000, 1000);
+
+            clickedImage.x = e.clientX - _this2.canvas.getBoundingClientRect().left - OFFSET_X;
+            clickedImage.y = e.clientY - _this2.canvas.getBoundingClientRect().top - OFFSET_Y;
+
+            _this2.images.push(clickedImage);
+
+            _this2.images.forEach(function (image) {
+              cxt.drawImage(image.img, image.x, image.y, 100, 70);
+            });
+          };
+          document.addEventListener("touchmove", touchMove);
+          document.addEventListener("touchend", function () {
+            document.removeEventListener("touchmove", touchMove);
+          });
+        })();
+      }
+
+      console.log("gecklicken", clickedImage);
+      console.log(event);
+    };
+
+    RallyCanvas.prototype.releasePressHandler = function releasePressHandler(envet) {
+      console.log("fisk");
+      document.onmousemove = undefined;
+    };
+
+    return RallyCanvas;
+  }(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'value', [_aureliaFramework.bindable], {
+    enumerable: true,
+    initializer: null
+  })), _class2)) || _class);
+});
+define('text!about.html', ['module'], function(module) { module.exports = "<template>\n\n</template>\n"; });
 define('text!app.css', ['module'], function(module) { module.exports = ".content {\r\n    margin-top: 65px;\r\n}"; });
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"resources/elements/header\"></require>\n  <require from=\"bootstrap/css/bootstrap.min.css\"></require>\n  <require from=\"./app.css\"></require>\n  <header message.bind=\"message\" router.bind=\"router\"></header>\n  <div class=\"content\">\n    <router-view></router-view>\n  </div>  \n</template>"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from=\"resources/elements/header\"></require>\r\n  <require from=\"bootstrap/css/bootstrap.min.css\"></require>\r\n  <require from=\"./app.css\"></require>\r\n  <header message.bind=\"message\" router.bind=\"router\"></header>\r\n  <div class=\"content\">\r\n    <router-view></router-view>\r\n  </div>  \r\n</template>"; });
 define('text!home.css', ['module'], function(module) { module.exports = ""; });
-define('text!home.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"./home.css\"></require>\n  <require from=\"resources/elements/side-bar\"></require>\n  <require from=\"resources/elements/rally-canvas\"></require>\n  <side-bar class=\"row\"></side-bar>\n  <rally-canvas></rally-canvas>\n</template>\n"; });
-define('text!resources/elements/rally-canvas.css', ['module'], function(module) { module.exports = "canvas {\n  position: absolute;\n  left: 270px;\n  top:0;\n  bottom: 0;\n  top: 55px;\n  outline: solid #e7e7e7 1px;\n  border: solid #f8f8f8 1px;\n\n}\n"; });
-define('text!resources/elements/header.html', ['module'], function(module) { module.exports = "<template bindable=\"message\" bindable=\"router\">\n\n  <require from=\"resources/attributes/tool-tip\"></require>\n\n  <nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container\">\n    <div class=\"navbar-header\">\n      <a href=\"/\" class=\"navbar-brand\">${message}</a>\n    </div>\n    <ul class=\"nav navbar-nav\">\n      <li repeat.for=\"row of router.navigation\" class=\"${row.isActive ? 'active' : ''}\">\n        <a tool-tip title.bind=\"row.title\" href.bind=\"row.href\">${getName(row.title)}</a>\n      </li>\n    </ul>\n  </div>\n</nav>\n</template>\n"; });
-define('text!resources/elements/side-bar.css', ['module'], function(module) { module.exports = "side-bar {\n  width: 280px;\n  position: absolute;\n  overflow-y: hidden;\n  top: 50px;\n  left: 0;\n  bottom: 0;\n  padding: 0;\n}\n.side-menu {\n  width: 280px;\n  position: absolute;\n  overflow-y: hidden;\n  top:0;\n  left: 0;\n  bottom: 0;\n  padding: 0;\n  border-right: 1px solid #e7e7e7;\n  background-color: #f8f8f8;\n}\n.sign-list {\n  height: calc(100% - 50px);\n  overflow-y: scroll;\n  bottom: 0;\n}\n.listItem {\n  background-color: #fff;\n  border-bottom: 1px solid #e7e7e7;\n}\n.listItem a {\n  margin: 10px;\n}\n.sign-list::-webkit-scrollbar {\n  width: 12px;\n}\n.sign-list::-webkit-scrollbar-track {\n  -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.1);\n  border-radius: 2px;\n}\n\n.sign-list::-webkit-scrollbar-thumb {\n  border-radius: 2px;\n  -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.5);\n}\n#dragging.image {\n  width: 100px;\n  position: absolute;\n  zIndex: 9999;\n}\n"; });
-define('text!resources/elements/rally-canvas.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"./rally-canvas.css\"></require>\n  <canvas ref=\"canvas\" height=\"600px\" width=\"800px\" top=\"0\"></canvas>\n</template>\n<!--\ndragover.delegate=\"onDrop(1)\" drop.delegate=\"onDrop($event)\"\n-->\n"; });
-define('text!resources/elements/side-bar.html', ['module'], function(module) { module.exports = "<template bindable=\"filter\">\n  <require from=\"./side-bar.css\"></require>\n  <require from=\"./sign-list-item\"></require>\n  <require from=\"resources/attributes/tool-tip\"></require>\n  <div class=\"side-menu col-sm-3 col-md2 sidebar\">\n    <form class=\"navbar-form\" role=\"search\">\n      <div class=\"input-group\">\n        <input tool-tip title=\"Filtrera på skyltens nummer. Exempelvis 401\"\n               type=\"text\" class=\"form-control\" value.two-way=\"filter\"\n               placeholder=\"Filter\" name=\"q\">\n        <div class=\"input-group-btn\">\n          <button class=\"btn btn-default\" type=\"submit\">Filter</button>\n        </div>\n      </div>\n    </form>\n    <ul class=\"sign-list nav nav-sidebar\" ref=\"list\">\n      <!--Master class signs-->\n      <li class=\"listItem\" repeat.for=\"i of 13\">\n        <a>\n        ${400 + (i+1)}\n          <img src=\"img/${400 + (i+1)}.jpg\" alt=\"cannot find ${400 + (i+1)}\" touchend.delegate=\"onMouseUp($event)\" mouseup.delegate=\"onMouseUp($event)\" touchstart.delegate=\"touchStart($event)\" mousedown.delegate=\"mouseDown($event)\" width=\"100px\"/>\n        </a>\n      </li>\n      <!--END master class signs-->\n    </ul>\n  </div>\n</template>\n"; });
-define('text!resources/elements/sign-list-item.html', ['module'], function(module) { module.exports = "<template>\n  <div class=\"sign-list-item-container\">\n    <slot></slot>\n  </div>\n</template>"; });
+define('text!home.html', ['module'], function(module) { module.exports = "<template>\r\n  <require from=\"./home.css\"></require>\r\n  <require from=\"resources/elements/side-bar\"></require>\r\n  <require from=\"resources/elements/rally-canvas\"></require>\r\n  <side-bar class=\"row\"></side-bar>\r\n  <rally-canvas></rally-canvas>\r\n</template>\r\n"; });
+define('text!resources/elements/rally-canvas.css', ['module'], function(module) { module.exports = "canvas {\r\n  position: absolute;\r\n  left: 270px;\r\n  top:0;\r\n  bottom: 0;\r\n  top: 55px;\r\n  outline: solid #e7e7e7 1px;\r\n  border: solid #f8f8f8 1px;\r\n\r\n}\r\n"; });
+define('text!resources/elements/header.html', ['module'], function(module) { module.exports = "<template bindable=\"message\" bindable=\"router\">\r\n\r\n  <require from=\"resources/attributes/tool-tip\"></require>\r\n\r\n  <nav class=\"navbar navbar-default navbar-fixed-top\">\r\n  <div class=\"container\">\r\n    <div class=\"navbar-header\">\r\n      <a href=\"/\" class=\"navbar-brand\">${message}</a>\r\n    </div>\r\n    <ul class=\"nav navbar-nav\">\r\n      <li repeat.for=\"row of router.navigation\" class=\"${row.isActive ? 'active' : ''}\">\r\n        <a tool-tip title.bind=\"row.title\" href.bind=\"row.href\">${getName(row.title)}</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</nav>\r\n</template>\r\n"; });
+define('text!resources/elements/side-bar.css', ['module'], function(module) { module.exports = "side-bar {\r\n  width: 280px;\r\n  position: absolute;\r\n  overflow-y: hidden;\r\n  top: 50px;\r\n  left: 0;\r\n  bottom: 0;\r\n  padding: 0;\r\n}\r\n.side-menu {\r\n  width: 280px;\r\n  position: absolute;\r\n  overflow-y: hidden;\r\n  top:0;\r\n  left: 0;\r\n  bottom: 0;\r\n  padding: 0;\r\n  border-right: 1px solid #e7e7e7;\r\n  background-color: #f8f8f8;\r\n}\r\n.sign-list {\r\n  height: calc(100% - 50px);\r\n  overflow-y: scroll;\r\n  bottom: 0;\r\n}\r\n.listItem {\r\n  background-color: #fff;\r\n  border-bottom: 1px solid #e7e7e7;\r\n}\r\n.listItem a {\r\n  margin: 10px;\r\n}\r\n.sign-list::-webkit-scrollbar {\r\n  width: 12px;\r\n}\r\n.sign-list::-webkit-scrollbar-track {\r\n  -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.1);\r\n  border-radius: 2px;\r\n}\r\n\r\n.sign-list::-webkit-scrollbar-thumb {\r\n  border-radius: 2px;\r\n  -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.5);\r\n}\r\n#dragging.image {\r\n  width: 100px;\r\n  position: absolute;\r\n  zIndex: 9999;\r\n}\r\n"; });
+define('text!resources/elements/rally-canvas.html', ['module'], function(module) { module.exports = "<template>\n  <require from=\"./rally-canvas.css\"></require>\n  <canvas ref=\"canvas\" height=\"600px\" width=\"800px\" top=\"0\"\n          mousedown.delegate=\"touchAndClickHandler($event)\"\n          touchstart.delegate=\"touchAndClickHandler($event)\"\n          mouseup.delegate=\"releasePressHandler($event)\"></canvas>\n</template>\n<!--\ndragover.delegate=\"onDrop(1)\" drop.delegate=\"onDrop($event)\"\n-->\n"; });
+define('text!resources/elements/side-bar.html', ['module'], function(module) { module.exports = "<template bindable=\"filter\">\r\n  <require from=\"./side-bar.css\"></require>\r\n  <require from=\"./sign-list-item\"></require>\r\n  <require from=\"resources/attributes/tool-tip\"></require>\r\n  <div class=\"side-menu col-sm-3 col-md2 sidebar\">\r\n    <form class=\"navbar-form\" role=\"search\">\r\n      <div class=\"input-group\">\r\n        <input tool-tip title=\"Filtrera på skyltens nummer. Exempelvis 401\"\r\n               type=\"text\" class=\"form-control\" value.two-way=\"filter\"\r\n               placeholder=\"Filter\" name=\"q\">\r\n        <div class=\"input-group-btn\">\r\n          <button class=\"btn btn-default\" type=\"submit\">Filter</button>\r\n        </div>\r\n      </div>\r\n    </form>\r\n    <ul class=\"sign-list nav nav-sidebar\" ref=\"list\">\r\n      <!--Master class signs-->\r\n      <li class=\"listItem\" repeat.for=\"i of 13\">\r\n        <a>\r\n        ${400 + (i+1)}\r\n          <img src=\"img/${400 + (i+1)}.jpg\" alt=\"cannot find ${400 + (i+1)}\" touchend.delegate=\"onMouseUp($event)\" mouseup.delegate=\"onMouseUp($event)\" touchstart.delegate=\"touchStart($event)\" mousedown.delegate=\"mouseDown($event)\" width=\"100px\"/>\r\n        </a>\r\n      </li>\r\n      <!--END master class signs-->\r\n    </ul>\r\n  </div>\r\n</template>\r\n"; });
+define('text!resources/elements/sign-list-item.html', ['module'], function(module) { module.exports = "<template>\r\n  <div class=\"sign-list-item-container\">\r\n    <slot></slot>\r\n  </div>\r\n</template>"; });
 //# sourceMappingURL=app-bundle.js.map
