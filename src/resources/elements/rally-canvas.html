@@ -3,7 +3,9 @@
   <canvas ref="canvas" height="600px" width="800px" top="0"
           mousedown.delegate="touchAndClickHandler($event)"
           touchstart.delegate="touchAndClickHandler($event)"
-          mouseup.delegate="releasePressHandler($event)"></canvas>
+          mouseup.delegate="releasePressHandler($event)"
+          <!--click.delegate="click($event)"-->
+  ></canvas>
 </template>
 <!--
 dragover.delegate="onDrop(1)" drop.delegate="onDrop($event)"
